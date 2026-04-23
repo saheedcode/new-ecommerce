@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +30,14 @@
 
 <body class="bg-[#f7f4f2] flex items-center justify-center min-h-screen">
 
-<div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md">
+<div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md relative">
+
+  <!-- BACK BUTTON -->
+  <div id="backButton" class=" absolute top-6 left-6">
+    <button onclick="goHome()" class="text-[#2d1a12] text-2xl font-bold">
+      ←
+    </button>
+  </div>
 
   <!-- Title -->
   <h2 id="formTitle" class="text-2xl font-bold text-center text-[#2d1a12] mb-6">
@@ -137,6 +150,7 @@ const newPasswordForm = document.getElementById("newPasswordForm");
 const successMessage = document.getElementById("successMessage");
 const formTitle = document.getElementById("formTitle");
 const toggleText = document.getElementById("toggleText");
+const backButton = document.getElementById("backButton");
 
 function showLogin() {
   signupForm.classList.add('hidden');
@@ -147,6 +161,7 @@ function showLogin() {
   successMessage.classList.add('hidden');
 
   formTitle.innerText = "Welcome Back";
+  backButton.classList.add('hidden');
 
   toggleText.innerHTML =
     `Don't have an account?
@@ -162,6 +177,7 @@ function showSignup() {
   successMessage.classList.add('hidden');
 
   formTitle.innerText = "Create Your Account";
+  backButton.classList.remove('hidden');
 
   toggleText.innerHTML =
     `Already have an account?
@@ -177,6 +193,7 @@ function showForgot() {
   successMessage.classList.add('hidden');
 
   formTitle.innerText = "Reset Password";
+  backButton.classList.add('hidden');
   toggleText.innerHTML = "";
 }
 
@@ -190,7 +207,6 @@ function handleReset() {
 
   forgotForm.classList.add('hidden');
   otpForm.classList.remove('hidden');
-
   formTitle.innerText = "Enter OTP";
 }
 
@@ -207,7 +223,6 @@ function goToNewPassword() {
 
   otpForm.classList.add('hidden');
   newPasswordForm.classList.remove('hidden');
-
   formTitle.innerText = "Create New Password";
 }
 
@@ -228,12 +243,15 @@ function resetPassword() {
 
   newPasswordForm.classList.add('hidden');
   successMessage.classList.remove('hidden');
-
   formTitle.innerText = "Success";
 }
 
 function resendOtp() {
   alert("OTP resent!");
+}
+
+function goHome() {
+  window.location.href = "index.html"; // change if needed
 }
 
 // auto move cursor
