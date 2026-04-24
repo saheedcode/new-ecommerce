@@ -129,3 +129,37 @@ document.addEventListener("input", function (e) {
     }
   }
 });
+
+
+
+/*
+//signup e.preventDefault() to prevent sign up button default
+signupForm.addEventListener('submit',async (e) =>{
+    e.preventDefault()
+
+    const firstNameVal = firstName.value
+    const lastNameval = lastName.value
+
+form with evenlistner submit 
+button evenlistner onclick
+submit classlist.add(bg-black text-white) to change the text
+
+const termAcceptedVal = termAccepted.checked
+
+if (firstNameVal.length < 2){
+return alert(enter last name)}
+
+})
+
+
+if ((firstNameVal.length < 2 && lastNameVal.lenth < 2){
+return alert ("first Name and lasat Nme ")} 
+
+//single code
+if (firstNameVal.length < 2) {
+  return alert("First name must be at least 2 characters");
+}
+
+if (lastNameVal.length < 2) {
+  return alert("Last name must be at least 2 characters");
+}*/
