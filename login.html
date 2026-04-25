@@ -4,262 +4,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dwello Auth</title>
+  <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    .otp-input {
-      width: 45px;
-      height: 50px;
-      text-align: center;
-      font-size: 18px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .otp-input:focus {
-      outline: none;
-      border-color: #2d1a12;
-    }
-  </style>
 </head>
 
 <body class="bg-[#f7f4f2] flex items-center justify-center min-h-screen">
 
-<div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md relative">
+  <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-md">
 
-  <!-- BACK BUTTON -->
-  <div id="backButton" class=" absolute top-6 left-6">
-    <button onclick="goHome()" class="text-[#2d1a12] text-2xl font-bold">
-      ←
-    </button>
+    <!-- Title -->
+    <h2 class="text-2xl font-bold text-center text-[#2d1a12] mb-6">
+      Welcome Back
+    </h2>
+
+    <!-- LOGIN FORM -->
+    <form onsubmit="return handleLogin()" class="space-y-4">
+
+      <!-- Email -->
+      <input 
+        type="email" 
+        id="email"
+        placeholder="Email" 
+        class="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#2d1a12]"
+      />
+
+      <!-- Password -->
+      <div class="relative">
+        <input 
+          type="password" 
+          id="password"
+          placeholder="Password" 
+          class="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#2d1a12]"
+        />
+        <span onclick="togglePassword()" 
+          class="absolute right-4 top-3 cursor-pointer text-sm text-gray-500">
+          Show
+        </span>
+      </div>
+
+      <!-- Remember + Forgot -->
+      <div class="flex justify-between items-center text-sm">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="remember"/>
+          Remember me
+        </label>
+
+        <a href="forgotpassword.html" class="text-[#2d1a12]">
+          Forgot Password?
+        </a>
+      </div>
+
+      <!-- Button -->
+      <button 
+        id="loginBtn"
+        type="submit"
+        class="w-full bg-[#2d1a12] text-white py-3 rounded-lg hover:opacity-90 transition">
+        Login
+      </button>
+
+    </form>
+
+    <!-- SIGNUP LINK -->
+    <p class="text-xs text-center mt-4">
+      Don’t have an account?
+      <a href="sign.html" class="text-[#2d1a12]">Sign Up</a>
+    </p>
+
   </div>
 
-  <!-- Title -->
-  <h2 id="formTitle" class="text-2xl font-bold text-center text-[#2d1a12] mb-6">
-    Create Your Account
-  </h2>
-
-  <!-- SIGNUP -->
-  <form id="signupForm" class="space-y-4">
-    <input type="text" placeholder="Full Name" class="w-full px-4 py-3 rounded-lg border"/>
-    <input type="email" placeholder="Email" class="w-full px-4 py-3 rounded-lg border"/>
-    <input type="password" placeholder="Password" class="w-full px-4 py-3 rounded-lg border"/>
-    <button class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">Sign Up</button>
-  </form>
-
-  <!-- LOGIN -->
-  <form id="loginForm" class="space-y-4 hidden">
-    <input type="email" placeholder="Email" class="w-full px-4 py-3 rounded-lg border"/>
-    <input type="password" placeholder="Password" class="w-full px-4 py-3 rounded-lg border"/>
-
-    <div class="text-right">
-      <span onclick="showForgot()" class="text-sm cursor-pointer text-[#2d1a12]">Forgot Password?</span>
-    </div>
-
-    <button class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">Login</button>
-  </form>
-
-  <!-- FORGOT -->
-  <form id="forgotForm" class="space-y-4 hidden">
-    <input type="email" id="resetEmail" placeholder="Enter your email"
-      class="w-full px-4 py-3 rounded-lg border"/>
-
-    <button type="button" onclick="handleReset()"
-      class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">
-      Reset Password
-    </button>
-
-    <p class="text-xs text-center">
-      <span onclick="showLogin()" class="cursor-pointer text-[#2d1a12]">Back to Login</span>
-    </p>
-  </form>
-
-  <!-- OTP -->
-  <form id="otpForm" class="space-y-4 hidden">
-    <p class="text-sm text-center text-gray-600">
-      Enter the 6-digit code sent to your email
-    </p>
-
-    <div class="flex justify-between gap-2">
-      <input maxlength="1" class="otp-input"/>
-      <input maxlength="1" class="otp-input"/>
-      <input maxlength="1" class="otp-input"/>
-      <input maxlength="1" class="otp-input"/>
-      <input maxlength="1" class="otp-input"/>
-      <input maxlength="1" class="otp-input"/>
-    </div>
-
-    <button type="button" onclick="goToNewPassword()"
-      class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">
-      Continue
-    </button>
-
-    <p class="text-xs text-center">
-      Didn’t receive code?
-      <span onclick="resendOtp()" class="text-[#2d1a12] cursor-pointer">Resend</span>
-    </p>
-  </form>
-
-  <!-- NEW PASSWORD -->
-  <form id="newPasswordForm" class="space-y-4 hidden">
-    <input type="password" placeholder="New Password"
-      class="w-full px-4 py-3 rounded-lg border"/>
-
-    <input type="password" placeholder="Confirm Password"
-      class="w-full px-4 py-3 rounded-lg border"/>
-
-    <button type="button" onclick="resetPassword()"
-      class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">
-      Update Password
-    </button>
-  </form>
-
-  <!-- SUCCESS -->
-  <div id="successMessage" class="hidden text-center space-y-4">
-    <h3 class="text-xl font-semibold text-[#2d1a12]">Success</h3>
-    <p class="text-sm text-gray-600">
-      Your password has been updated.
-    </p>
-
-    <button onclick="showLogin()"
-      class="w-full bg-[#2d1a12] text-white py-3 rounded-lg">
-      Back to Login
-    </button>
-  </div>
-
-  <!-- TOGGLE -->
-  <p id="toggleText" class="text-xs text-center mt-4">
-    Already have an account?
-    <span onclick="showLogin()" class="cursor-pointer text-[#2d1a12]">Login</span>
-  </p>
-
-</div>
-
-<script>
-
-const signupForm = document.getElementById("signupForm");
-const loginForm = document.getElementById("loginForm");
-const forgotForm = document.getElementById("forgotForm");
-const otpForm = document.getElementById("otpForm");
-const newPasswordForm = document.getElementById("newPasswordForm");
-const successMessage = document.getElementById("successMessage");
-const formTitle = document.getElementById("formTitle");
-const toggleText = document.getElementById("toggleText");
-const backButton = document.getElementById("backButton");
-
-function showLogin() {
-  signupForm.classList.add('hidden');
-  loginForm.classList.remove('hidden');
-  forgotForm.classList.add('hidden');
-  otpForm.classList.add('hidden');
-  newPasswordForm.classList.add('hidden');
-  successMessage.classList.add('hidden');
-
-  formTitle.innerText = "Welcome Back";
-  backButton.classList.add('hidden');
-
-  toggleText.innerHTML =
-    `Don't have an account?
-     <span onclick="showSignup()" class="cursor-pointer text-[#2d1a12]">Sign Up</span>`;
-}
-
-function showSignup() {
-  signupForm.classList.remove('hidden');
-  loginForm.classList.add('hidden');
-  forgotForm.classList.add('hidden');
-  otpForm.classList.add('hidden');
-  newPasswordForm.classList.add('hidden');
-  successMessage.classList.add('hidden');
-
-  formTitle.innerText = "Create Your Account";
-  backButton.classList.remove('hidden');
-
-  toggleText.innerHTML =
-    `Already have an account?
-     <span onclick="showLogin()" class="cursor-pointer text-[#2d1a12]">Login</span>`;
-}
-
-function showForgot() {
-  signupForm.classList.add('hidden');
-  loginForm.classList.add('hidden');
-  forgotForm.classList.remove('hidden');
-  otpForm.classList.add('hidden');
-  newPasswordForm.classList.add('hidden');
-  successMessage.classList.add('hidden');
-
-  formTitle.innerText = "Reset Password";
-  backButton.classList.add('hidden');
-  toggleText.innerHTML = "";
-}
-
-function handleReset() {
-  const email = document.getElementById("resetEmail").value;
-
-  if (!email) {
-    alert("Please enter your email");
-    return;
-  }
-
-  forgotForm.classList.add('hidden');
-  otpForm.classList.remove('hidden');
-  formTitle.innerText = "Enter OTP";
-}
-
-function goToNewPassword() {
-  const inputs = document.querySelectorAll(".otp-input");
-  let otp = "";
-
-  inputs.forEach(input => otp += input.value);
-
-  if (otp.length < 6) {
-    alert("Enter complete OTP");
-    return;
-  }
-
-  otpForm.classList.add('hidden');
-  newPasswordForm.classList.remove('hidden');
-  formTitle.innerText = "Create New Password";
-}
-
-function resetPassword() {
-  const inputs = newPasswordForm.querySelectorAll("input");
-  const password = inputs[0].value;
-  const confirm = inputs[1].value;
-
-  if (!password || !confirm) {
-    alert("Fill all fields");
-    return;
-  }
-
-  if (password !== confirm) {
-    alert("Passwords do not match");
-    return;
-  }
-
-  newPasswordForm.classList.add('hidden');
-  successMessage.classList.remove('hidden');
-  formTitle.innerText = "Success";
-}
-
-function resendOtp() {
-  alert("OTP resent!");
-}
-
-function goHome() {
-  window.location.href = "index.html"; // change if needed
-}
-
-// auto move cursor
-document.addEventListener("input", function (e) {
-  if (e.target.classList.contains("otp-input")) {
-    if (e.target.value.length === 1) {
-      const next = e.target.nextElementSibling;
-      if (next) next.focus();
+  <!-- SCRIPT -->
+  <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
     }
-  }
-});
 
-</script>
+    function handleLogin() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const btn = document.getElementById("loginBtn");
+
+      // Validation
+      if (!email || !password) {
+        alert("Please fill all fields");
+        return false;
+      }
+
+      // Fake login check (you can upgrade later)
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return false;
+      }
+
+      // Loading state
+      btn.innerText = "Logging in...";
+      btn.disabled = true;
+
+      // Simulate success
+      setTimeout(() => {
+        alert("Login Successful!");
+        window.location.href = "index.html"; // change to dashboard later
+      }, 1000);
+
+      return false; // prevent instant reload
+    }
+  </script>
 
 </body>
 </html>

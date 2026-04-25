@@ -162,4 +162,135 @@ if (firstNameVal.length < 2) {
 
 if (lastNameVal.length < 2) {
   return alert("Last name must be at least 2 characters");
-}*/
+}
+ 
+const pass1 = 12345678
+const pass2 = '12345678'
+if (pass1 !== pass2){
+return alert(`password doent match`)
+console.log(pass1,pass2)
+}
+
+
+//Regex  email regex
+const emailRegex = ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+
+if(!emailRegex.test(emailVal)){
+return alert ('please enter a valid email)}
+
+
+if (emailRegex.test(emailVal) === false){
+return alert ('please Enter a valid email)}
+
+//phone 
+if (phoneNumberVal.lenth !-- 11){
+return alert ('invalid phone number, please check and try again'),
+
+
+}
+
+placeholder="0801246677" type="tel"
+
+const userinfo = {
+fName: firstNameVal,
+lName: lastnameVal.
+eM: emailVal
+phone:phoneNumberVal
+pass: passwordVal
+}
+
+const savedItem = JSON.strignify(userinfo)
+localStorage.setItem('userInfo' savedItem)
+
+return window.href
+
+
+//new copy 
+const firstName = document.getElementById('firstName')
+const lastName = document.getElementById('lastName')
+const email = document.getElementById('email')
+const phoneNumber = document.getElementById('phoneNumber')
+const password = document.getElementById('password')
+const confirmPassword = document.getElementById('confirmPassword')
+const termsAccepted = document.getElementById('terms')
+const submitBtn = document.getElementById('submitBtn')
+const signupForm = document.getElementById('signupForm')
+
+
+// FOR FORM SUBMISSION 
+
+
+signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const firstNameVal = firstName.value.trim()
+    const lastNameVal = lastName.value.trim()
+    const emailVal = email.value.trim()
+    const phoneNumberVal = phoneNumber.value.trim()
+    const passwordVal = password.value
+    const confirmPasswordVal = confirmPassword.value
+    const termAcceptedVal = termsAccepted.checked
+
+    console.log(termsAccepted, "THE html ")
+    console.log(termAcceptedVal, "THE VALUEUEUEUEU ")
+    
+    // FIRST NAME AND LAST NAME CHECKS
+    if(firstNameVal.length < 2 || lastNameVal.length < 2){
+        return  alert("First Name and Last Name value must be 2 charcter and above ")
+    }
+
+    if(!passwordVal || !confirmPasswordVal ){
+        return alert("Please enter your password")
+    }
+
+    console.log(passwordVal, confirmPasswordVal, "the twoooo")
+
+    if(passwordVal !== confirmPasswordVal){
+        return alert(`Password doesn't match `)
+    }
+
+    // EMAIL CHECK 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    console.log(emailRegex.test(emailVal), "THE REGESTSTST")
+    if(emailRegex.test(emailVal) === false){
+    return alert ('Please enter a valid email')
+    }
+
+    // CHECK PHONE NUMBER
+
+    if(phoneNumberVal.length !== 11){
+        return alert('Invalid Phone Number. Please check and try again')
+    }
+
+    // VALID CHECKBOCK
+    if(!termAcceptedVal){
+        return alert('Please agreed to the terms and conditions')
+    }
+
+    const userinfo = {
+        fName: firstNameVal,
+        lName: lastNameVal,
+        eM : emailVal,
+        phone: phoneNumberVal,
+        pass: passwordVal
+    }
+
+    const savedItem = JSON.stringify(userinfo)
+    localStorage.setItem('userInfo', savedItem)
+
+    return window.href = '/login'
+
+
+
+
+
+
+
+
+    // console.log(firstName, lastName, "THE VAVAVAVAVAV")
+    // console.log(firstNameVal, lastNameVal, "THE VALUEES")
+
+    // return
+
+})
+*/
