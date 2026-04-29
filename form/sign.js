@@ -64,7 +64,8 @@
         }
 
         localStorage.setItem('userInfo', JSON.stringify(userinfo))
-
+//const savedItems = localStorage.getItem(userInfo)
+//const  savedUser = Json.parse(savedItems)
         // RESET BUTTON
         submitBtn.textContent = "Sign Up"
         submitBtn.disabled = false
